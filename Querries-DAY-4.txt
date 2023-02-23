@@ -1,0 +1,83 @@
+//Gets Trainer By Id accepting variable $trainerId
+query GetTrainerById($trainerId: ID!) {
+  trainer(id: $trainerId) {
+    name
+    id
+  }
+}
+
+// Get All Courses
+query GetAllCourses {
+  courses {
+    id
+    title
+    price
+    likes
+    rating
+    imageUrl
+  }
+}
+
+// Get CourseTitle By Id
+query GetCourseById($courseId: ID!) {
+  course(id: $courseId) {
+    title
+  }
+}
+
+
+// Combining Querries
+
+query CombiningQuerries{
+  courses {
+    id
+    title
+  }
+  trainers{
+    id
+    name
+  }
+  course(id:2){
+    id
+    title
+  }
+}
+
+// Aliases
+
+query CombiningQuerriesWithAliases{
+   course1:course(id:1){
+    id
+    title
+  }
+  course2:course(id:2){
+    id
+    title
+  }
+}
+
+// Fragments
+query CombiningQuerriesWithAliasesAndFragment{
+   course1:course(id:3){
+   ...courseDetails
+  }
+  course2:course(id:4){
+   ...courseDetails
+  }
+}
+
+fragment courseDetails on Course{
+ id
+    title
+    price
+    likes
+}
+
+// Mutations
+
+mutation CreateTrainerMutation($createTrainerId: String!, $name: String, $isMct: Boolean, $followers: Int, $avatarUrl: String) {
+  createTrainer(id: $createTrainerId, name: $name, isMCT: $isMct, followers: $followers, avatarUrl: $avatarUrl) {
+    id
+    name
+  }
+}
